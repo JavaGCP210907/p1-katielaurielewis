@@ -1,5 +1,6 @@
 body {
 	background-color: aliceblue;
+	font-family: Verdana, sans-serif;
 }
 
 .loginform {
@@ -25,6 +26,7 @@ body {
   z-index: 100; /* Behind the navbar */
   padding: 48px 0 0; /* Height of navbar */
   box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+  background-color: #ADD8E6;
 }
 
 @media (max-width: 767.98px) {
