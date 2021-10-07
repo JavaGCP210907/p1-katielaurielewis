@@ -45,13 +45,19 @@ public class UserDao implements UserDaoInterface{
 	
 	@Override
 	public User findUserByID(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		Session ses = HibernateUtil.getSession();
+		
+		User user = ses.get(User.class, id);
+		
+		HibernateUtil.closeSession();
+		
+		return user;
 	}
 
 	
 	@Override
-	public void promoteUser(User u, UserRole rl) {
+	public void changeUserRole(User u, UserRole rl) {
 		Session ses = HibernateUtil.getSession();
 		Transaction transRights = ses.beginTransaction(); 
 		

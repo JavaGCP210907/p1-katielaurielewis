@@ -10,16 +10,16 @@ import com.revature.model.UserRole;
 
 public interface ReimbursementDaoInterface {
 	
-	public void submit(User u, Reimbursement r);
+	public void addReimb(Reimbursement r);
 	
-	public void approve(Reimbursement r);
+	public void removeReimb(Reimbursement r);
 	
-	public void deny(Reimbursement r);
+	public void changeStatus(Reimbursement r, ReimbursementStatus rs);
 	
 	public Reimbursement findReimbById(int id);
 	
 	public List<Reimbursement> findAllReimbs();
 	
-	public List<Reimbursement> find();
+	public List<Reimbursement> findAllSubmitted();
 
 }

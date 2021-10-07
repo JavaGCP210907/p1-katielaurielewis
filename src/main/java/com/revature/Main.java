@@ -17,17 +17,9 @@ import java.util.List;
 public class Main {
 
 		public static void main(String[] args) {
-			UserDao uDao = new UserDao();
-			UserRoleDao urDao = new UserRoleDao();
-			
-			User u = new User();
-			u.setFirstName("first");
-			u.setLastName("last");
-			u.setEmail("email@place.com");
-			u.setUsername("firstlast");
-			u.setPassword("password");
-			u.setRole(urDao.getRole("Employee"));
-			
-			uDao.addUser(u);
+			ReimbursementDao rd = new ReimbursementDao();
+			rd.findAllSubmitted().forEach(arg0 -> {
+				System.out.println(arg0);
+			});
 		}
 }

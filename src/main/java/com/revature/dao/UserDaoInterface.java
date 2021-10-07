@@ -16,7 +16,7 @@ public interface UserDaoInterface {
 	
 	public User findUserByID(int id);
 	
-	public void promoteUser(User u, UserRole rl);
+	public void changeUserRole(User u, UserRole rl);
 	
 	public List<User> findAllUsers();
 	
