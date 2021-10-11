@@ -26,8 +26,13 @@ public class Main {
 					).start(8090);
 			
 			app.post("/login", lc.loginHandler);
+			app.get("/logout", lc.logoutHandler);
 			app.get("/user", uc.getManagerView);
-			app.get("/reimbursement", rc.getAllSubmitted);
+			app.get("/reimbursement/pending", rc.getAllSubmitted);
+			app.get("/reimbursement/approved", rc.getAllApproved);
+			app.get("/reimbursement/denied", rc.getAllDenied);
 			app.post("/reimbursement", rc.submit);
+			app.post("/reimbursement/:id/approve", rc.approve);
+			app.post("/reimbursement/:id/deny", rc.deny);
 		}
 }

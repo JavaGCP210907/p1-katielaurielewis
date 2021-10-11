@@ -1,5 +1,6 @@
 package com.revature.dao;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import com.revature.model.Reimbursement;
@@ -16,10 +17,18 @@ public interface ReimbursementDaoInterface {
 	
 	public void changeStatus(Reimbursement r, ReimbursementStatus rs);
 	
+	public void changeResolver(Reimbursement r, User u);
+	
+	public void changeResolvedTime(Reimbursement r, Timestamp t);
+	
 	public Reimbursement findReimbById(int id);
 	
 	public List<Reimbursement> findAllReimbs();
 	
 	public List<Reimbursement> findAllSubmitted();
+	
+	public List<Reimbursement> findAllApproved();
+	
+	public List<Reimbursement> findAllDenied();
 
 }

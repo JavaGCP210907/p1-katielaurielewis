@@ -11,6 +11,7 @@ import com.revature.service.ReimbursementService;
 import com.revature.service.UserService;
 import com.revature.util.JwtUtil;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -32,9 +33,9 @@ public class ReimbursementController {
 			
 			Gson gson = new Gson();
 			
-			String JSONAvengers = gson.toJson(allSubmitted); 
+			String submitted = gson.toJson(allSubmitted); 
 			
-			ctx.result(JSONAvengers); 
+			ctx.result(submitted); 
 			
 			ctx.status(200); 
 			
@@ -42,6 +43,42 @@ public class ReimbursementController {
 				ctx.status(403); 
 			}
 			
+		};
+		
+		public Handler getAllApproved = (ctx) -> {
+			if(ctx.req.getSession(false) != null) {
+				
+				List<Reimbursement> allApproved = rs.seeAllApproved();
+				
+				Gson gson = new Gson();
+				
+				String approved = gson.toJson(allApproved); 
+				
+				ctx.result(approved); 
+				
+				ctx.status(200); 
+				
+			} else {
+				ctx.status(403); 
+			}
+		};
+		
+		public Handler getAllDenied = (ctx) -> {
+			if(ctx.req.getSession(false) != null) {
+				
+				List<Reimbursement> allDenied = rs.seeAllDenied();
+				
+				Gson gson = new Gson();
+				
+				String denied = gson.toJson(allDenied); 
+				
+				ctx.result(denied); 
+				
+				ctx.status(200); 
+				
+			} else {
+				ctx.status(403); 
+			}
 		};
 		
 		public Handler submit = (ctx) -> {
@@ -66,8 +103,26 @@ public class ReimbursementController {
 				ctx.status(403);
 			}
 		};
+		
+		public Handler approve = (ctx) -> {
+			HttpSession session = ctx.req.getSession(false);
+			if(session != null) {
+				int id = Integer.parseInt(ctx.pathParam("id"));
+				Reimbursement r = rs.getReimbursementById(id);
+				User resolver = us.getEmployeeByUsername((String)session.getAttribute("username"));
+				rs.approve(r, resolver);
+			}
+		};
 	
-	
+		public Handler deny = (ctx) -> {
+			HttpSession session = ctx.req.getSession(false);
+			if(session != null) {
+				int id = Integer.parseInt(ctx.pathParam("id"));
+				Reimbursement r = rs.getReimbursementById(id);
+				User resolver = us.getEmployeeByUsername((String)session.getAttribute("username"));
+				rs.deny(r, resolver);
+			}
+		};
 
 
 }

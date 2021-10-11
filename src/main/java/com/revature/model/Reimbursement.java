@@ -1,6 +1,5 @@
 package com.revature.model;
 import java.sql.Timestamp;
-import java.time.Instant;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;

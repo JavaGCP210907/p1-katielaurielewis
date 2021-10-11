@@ -38,5 +38,14 @@ public class LoginController {
 		
 		
 	};
+	
+	public Handler logoutHandler = (ctx) -> {
+		if(ctx.req.getSession() != null) {
+			ctx.clearCookieStore();
+			ctx.status(200);
+		} else {
+			ctx.status(401);
+		}
+	};
 
 }

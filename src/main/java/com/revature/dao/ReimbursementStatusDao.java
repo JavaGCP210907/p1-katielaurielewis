@@ -2,20 +2,25 @@ package com.revature.dao;
 
 import java.util.List;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import com.revature.model.ReimbursementStatus;
-import com.revature.model.User;
 import com.revature.util.HibernateUtil;
 
 public class ReimbursementStatusDao implements ReimbursementStatusDaoInterface {
+	
+	Logger log = LogManager.getLogger(ReimbursementStatusDaoInterface.class);
 
 	@Override
 	public void addRS(ReimbursementStatus rs) {
 		Session ses = HibernateUtil.getSession();
 		
-		ses.save(rs); 
+		ses.save(rs);
+		
+		log.info("Saved new Reimbursement Status with id " + rs.getId());
 		
 		HibernateUtil.closeSession();
 	}
@@ -24,7 +29,8 @@ public class ReimbursementStatusDao implements ReimbursementStatusDaoInterface {
 	public void removeRS(ReimbursementStatus rs) {
 		Session ses = HibernateUtil.getSession();
 		Transaction transRights = ses.beginTransaction();
-		ses.delete(rs); 
+		ses.delete(rs);
+		log.warn("Deleted Reimbursement Status with id " + rs.getId());
 		transRights.commit();
 		HibernateUtil.closeSession();	
 	}
