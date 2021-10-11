@@ -1,24 +1,35 @@
 package com.revature.service;
 
+import com.revature.dao.UserDao;
+import com.revature.model.User;
+import com.revature.util.HibernateUtil;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class LoginServiceTest {
 
+	static UserDao uDao = new UserDao();
 	LoginService ls = new LoginService();
 	
-	@Before
-	public void setup() {
-		// make fake user here
+	static User u = new User();
+	
+	@BeforeClass
+	public static void setup() {
+		u.setUsername("sampleuser");
+		u.setPassword("samplepassword");
+		uDao.addUser(u);
 	}
 	
-	@After
-	public void teardown() {
-		// delete fake user here
+	@AfterClass
+	public static void teardown() {
+		uDao.removeUser(u);
 	}
 	
 	@Test

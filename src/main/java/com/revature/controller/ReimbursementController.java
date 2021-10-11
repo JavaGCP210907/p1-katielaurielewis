@@ -26,18 +26,30 @@ public class ReimbursementController {
 	UserService us = new UserService();
 	
 		public Handler getAllSubmitted = (ctx) -> {
+			HttpSession session = ctx.req.getSession(false);
 			
-			if(ctx.req.getSession(false) != null) {
+			if(session != null) {
+				
+				boolean manager = Boolean.parseBoolean(ctx.queryParam("manager"));
+				
+				List<Reimbursement> allSubmitted;
+				
+				// if username is passed in, only retrieve reimbursements authored by that user
+				if(manager) {
+					allSubmitted = rs.seeAllSubmitted();
+				} else {
+					String username = (String)session.getAttribute("username");
+					int id = us.getEmployeeByUsername(username).getId();
+					allSubmitted = rs.seeAllSubmittedByUser(id);
+				}
 			
-			List<Reimbursement> allSubmitted = rs.seeAllSubmitted();
+				Gson gson = new Gson();
 			
-			Gson gson = new Gson();
+				String submitted = gson.toJson(allSubmitted); 
 			
-			String submitted = gson.toJson(allSubmitted); 
+				ctx.result(submitted); 
 			
-			ctx.result(submitted); 
-			
-			ctx.status(200); 
+				ctx.status(200); 
 			
 			} else {
 				ctx.status(403); 
@@ -46,9 +58,21 @@ public class ReimbursementController {
 		};
 		
 		public Handler getAllApproved = (ctx) -> {
-			if(ctx.req.getSession(false) != null) {
+			HttpSession session = ctx.req.getSession(false);
+			if(session != null) {
 				
-				List<Reimbursement> allApproved = rs.seeAllApproved();
+				boolean manager = Boolean.parseBoolean(ctx.queryParam("manager"));
+				
+				List<Reimbursement> allApproved;
+				
+				// if username is passed in, only retrieve reimbursements authored by that user
+				if(manager) {
+					allApproved = rs.seeAllApproved();
+				} else {
+					String username = (String)session.getAttribute("username");
+					int id = us.getEmployeeByUsername(username).getId();
+					allApproved = rs.seeAllApprovedByUser(id);
+				}
 				
 				Gson gson = new Gson();
 				
@@ -64,9 +88,20 @@ public class ReimbursementController {
 		};
 		
 		public Handler getAllDenied = (ctx) -> {
-			if(ctx.req.getSession(false) != null) {
+			HttpSession session = ctx.req.getSession(false);
+			if(session != null) {
 				
-				List<Reimbursement> allDenied = rs.seeAllDenied();
+				boolean manager = Boolean.parseBoolean(ctx.queryParam("manager"));
+				
+				List<Reimbursement> allDenied;
+				
+				if(manager) {
+					allDenied = rs.seeAllDenied();
+				} else {
+					String username = (String)session.getAttribute("username");
+					int id = us.getEmployeeByUsername(username).getId();
+					allDenied = rs.seeAllDeniedByUser(id);
+				}
 				
 				Gson gson = new Gson();
 				

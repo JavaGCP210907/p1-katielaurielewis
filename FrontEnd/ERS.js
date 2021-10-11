@@ -63,6 +63,8 @@ async function loginFunc(){
 		}
 		else {
 			document.getElementById("employeeview").style.display = "block";
+			        document.getElementById("login-row").innerText=""
+			
 		}
     } else {
         document.getElementById("login-row").innerText="Please check username and password."
@@ -80,6 +82,11 @@ async function logoutFunc() {
 		document.getElementById("managerview").style.display = "none";
 		document.getElementById("employeeview").style.display = "none";
 		
+		document.getElementById("reimbursement-body-manager").innerHTML = "";
+		document.getElementById("reimbursement-head-manager").innerHTML = "";
+		document.getElementById("reimbursement-body-employee").innerHTML = "";
+		document.getElementById("reimbursement-head-employee").innerHTML = "";
+		
 		document.getElementById("username").value = "";
     	document.getElementById("password").value = "";
 	}
@@ -92,7 +99,7 @@ async function pendingFunc() {
 	document.getElementById("reimbursement-body-employee").innerHTML = "";
 	document.getElementById("reimbursement-head-employee").innerHTML = "";
 
-    let response = await fetch(url + "reimbursement/pending", {credentials: "include"});
+    let response = await fetch(url + "reimbursement/pending?manager=" + manager, {credentials: "include"});
 
     console.log(response);
 
@@ -230,7 +237,7 @@ async function approvedFunc() {
 	document.getElementById("reimbursement-body-employee").innerHTML = "";
 	document.getElementById("reimbursement-head-employee").innerHTML = "";
 
-    let response = await fetch(url + "reimbursement/approved", {credentials: "include"});
+    let response = await fetch(url + "reimbursement/approved?manager=" + manager, {credentials: "include"});
 
     console.log(response);
 
@@ -356,7 +363,7 @@ async function deniedFunc() {
 	document.getElementById("reimbursement-body-employee").innerHTML = "";
 	document.getElementById("reimbursement-head-employee").innerHTML = "";
 
-    let response = await fetch(url + "reimbursement/denied", {credentials: "include"});
+    let response = await fetch(url + "reimbursement/denied?manager=" + manager, {credentials: "include"});
 
     console.log(response);
 
@@ -580,6 +587,7 @@ async function submitReimbursement() {
 	});
 	
 	if(response.status === 200) {
+		pendingFunc();
 		console.log(response);
 		document.getElementById("amount").value = "";
 		document.getElementById("description").value = "";

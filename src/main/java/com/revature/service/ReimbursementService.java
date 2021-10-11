@@ -41,7 +41,20 @@ public class ReimbursementService {
 		List<Reimbursement> rList = rDao.findAllDenied();
 		return rList;
 	}
+	public List<Reimbursement> seeAllSubmittedByUser(int id){
+		List<Reimbursement> rList = rDao.findAllSubmittedByUser(id);
+		return rList;
+	}
 	
+	public List<Reimbursement> seeAllApprovedByUser(int id){
+		List<Reimbursement> rList = rDao.findAllApprovedByUser(id);
+		return rList;
+	}
+	
+	public List<Reimbursement> seeAllDeniedByUser(int id){
+		List<Reimbursement> rList = rDao.findAllDeniedByUser(id);
+		return rList;
+	}
 	public void approve(Reimbursement r, User resolver) {
 		ReimbursementStatus status = rsDao.findRSById(2); //2 is approval, this seems fine to hard code
 		rDao.changeStatus(r, status);

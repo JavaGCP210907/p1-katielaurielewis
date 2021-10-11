@@ -30,5 +30,11 @@ public interface ReimbursementDaoInterface {
 	public List<Reimbursement> findAllApproved();
 	
 	public List<Reimbursement> findAllDenied();
+	
+	public List<Reimbursement> findAllSubmittedByUser(int id);
+	
+	public List<Reimbursement> findAllApprovedByUser(int id);
+	
+	public List<Reimbursement> findAllDeniedByUser(int id);
 
 }

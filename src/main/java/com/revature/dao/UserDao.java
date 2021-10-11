@@ -29,6 +29,7 @@ public class UserDao implements UserDaoInterface{
 	public void removeUser(User u) {
 		Session ses = HibernateUtil.getSession();
 		Transaction transRights = ses.beginTransaction();
+		ses.clear();
 		ses.delete(u); 
 		transRights.commit();
 		HibernateUtil.closeSession();		

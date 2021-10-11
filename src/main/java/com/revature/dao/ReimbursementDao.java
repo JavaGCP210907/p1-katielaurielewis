@@ -144,7 +144,38 @@ public class ReimbursementDao implements ReimbursementDaoInterface {
 		return reimbursementList;
 	}
 
-	
+	@Override
+	public List<Reimbursement> findAllSubmittedByUser(int id) {
+		Session ses = HibernateUtil.getSession();
+		
+		List<Reimbursement> reimbursementList = ses.createQuery("FROM Reimbursement WHERE status_id = 1 AND reimb_author = " + id).list();
+		
+		HibernateUtil.closeSession();
+		
+		return reimbursementList;
+	}
+
+	@Override
+	public List<Reimbursement> findAllApprovedByUser(int id) {
+		Session ses = HibernateUtil.getSession();
+		
+		List<Reimbursement> reimbursementList = ses.createQuery("FROM Reimbursement WHERE status_id = 2 AND reimb_author = " + id).list();
+		
+		HibernateUtil.closeSession();
+		
+		return reimbursementList;
+	}
+
+	@Override
+	public List<Reimbursement> findAllDeniedByUser(int id) {
+		Session ses = HibernateUtil.getSession();
+		
+		List<Reimbursement> reimbursementList = ses.createQuery("FROM Reimbursement WHERE status_id = 3 AND reimb_author = " + id).list();
+		
+		HibernateUtil.closeSession();
+		
+		return reimbursementList;
+	}
 	
 
 }

@@ -7,7 +7,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 
 public class JwtUtil {
 
-    private static final String secret ="super secret string noone else should ever have";
+    private static final String secret ="a player may concede the game at any time";
     private static final Algorithm algorithm = Algorithm.HMAC256(secret);
 
     public static String generate(String username, String password){
