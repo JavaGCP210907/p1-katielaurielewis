@@ -41,6 +41,15 @@ public class UserRoleDao implements UserRoleDaoInterface {
 		
 		return userRole;
 	}
+	
+	@Override
+	public UserRole findUserRoleByName(String roleName) {
+		Session ses = HibernateUtil.getSession();
+		
+		UserRole role = (UserRole) ses.createQuery("FROM UserRole WHERE role = \'" + roleName + "\'").uniqueResult();
+		
+		return role;
+	}
 
 	@Override
 	public List<UserRole> findAllUserRoles() {

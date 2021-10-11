@@ -16,6 +16,8 @@ public interface UserDaoInterface {
 	
 	public User findUserByID(int id);
 	
+	public User findUserByUsername(String username);
+	
 	public void changeUserRole(User u, UserRole rl);
 	
 	public List<User> findAllUsers();

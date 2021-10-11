@@ -1,18 +1,11 @@
 package com.revature;
 
-import com.revature.dao.UserDao;
-import com.revature.dao.UserRoleDao;
+import com.revature.controller.LoginController;
+import com.revature.controller.UserController;
+import com.revature.controller.ReimbursementController;
 import com.revature.dao.ReimbursementDao;
-import com.revature.dao.ReimbursementStatusDao;
-import com.revature.dao.ReimbursementTypeDao;
 
-import com.revature.model.User;
-import com.revature.model.UserRole;
-import com.revature.model.Reimbursement;
-import com.revature.model.ReimbursementStatus;
-import com.revature.model.ReimbursementType;
-
-import java.util.List;
+import io.javalin.Javalin;
 
 public class Main {
 
@@ -21,5 +14,20 @@ public class Main {
 			rd.findAllSubmitted().forEach(arg0 -> {
 				System.out.println(arg0);
 			});
+			
+			LoginController lc = new LoginController();
+			UserController uc = new UserController();
+			ReimbursementController rc = new ReimbursementController();
+			
+			Javalin app = Javalin.create(
+					config -> {
+						config.enableCorsForAllOrigins(); 
+					}
+					).start(8090);
+			
+			app.post("/login", lc.loginHandler);
+			app.get("/user", uc.getManagerView);
+			app.get("/reimbursement", rc.getAllSubmitted);
+			app.post("/reimbursement", rc.submit);
 		}
 }

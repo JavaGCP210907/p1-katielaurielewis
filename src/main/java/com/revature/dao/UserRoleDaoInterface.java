@@ -12,5 +12,7 @@ public interface UserRoleDaoInterface {
 	
 	public UserRole findUserRoleByID(int id);
 	
+	public UserRole findUserRoleByName(String name);
+	
 	public List<UserRole> findAllUserRoles();
 }

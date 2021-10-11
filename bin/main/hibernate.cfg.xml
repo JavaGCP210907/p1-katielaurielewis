@@ -24,9 +24,7 @@
 		<!-- DDL -->
 		<property name="hibernate.hbm2ddl.auto">validate</property>
 		<property name="hibernate.globally_quoted_identifiers">true</property>
-		<!-- Anyone remember what setting our hbm2ddl.auto to create will do? -->
 		
-		<!-- We need to map our Classes in order for them to be recognized by Hibernate -->
 		<mapping class="com.revature.model.Reimbursement"/>
 		<mapping class="com.revature.model.ReimbursementStatus"/>
 		<mapping class="com.revature.model.ReimbursementType"/>

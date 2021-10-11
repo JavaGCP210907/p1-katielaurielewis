@@ -25,15 +25,6 @@ public class UserDao implements UserDaoInterface{
 	}
 	
 
-	
-	public UserRole getRoleByName(String roleName) {
-		Session ses = HibernateUtil.getSession();
-		
-		UserRole role = (UserRole) ses.createQuery("FROM UserRole WHERE role = \'" + roleName + "\'").uniqueResult();
-		
-		return role;
-	}
-
 	@Override
 	public void removeUser(User u) {
 		Session ses = HibernateUtil.getSession();
@@ -55,6 +46,14 @@ public class UserDao implements UserDaoInterface{
 		return user;
 	}
 
+	@Override
+	public User findUserByUsername(String username) {
+		Session ses = HibernateUtil.getSession();
+		
+		User user = (User) ses.createQuery("FROM User WHERE username = \'" + username + "\'").uniqueResult();
+		
+		return user;
+	}
 	
 	@Override
 	public void changeUserRole(User u, UserRole rl) {

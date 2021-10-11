@@ -6,7 +6,7 @@ body {
 .loginform {
 	width: 100%;
     max-width: 330px;
-    padding: 15px;
+    padding: 30px;
     margin: auto;
 }
 
@@ -100,4 +100,14 @@ body {
 .form-control-dark:focus {
   border-color: transparent;
   box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
+}
+
+#login-row {
+	margin-top: 1rem!important;
+}
+h4 {
+ font-size: 1.275rem; 
+}
+.form-label {
+	position:static;
 }

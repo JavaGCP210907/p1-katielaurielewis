@@ -18,16 +18,16 @@ public class LoginController {
 		Gson gson = new Gson();
 		
 		LoginDTO LDTO = gson.fromJson(body, LoginDTO.class); 
-	
+
 		if(ls.login(LDTO.getUsername(), LDTO.getPassword())) { 
 			
 			String jwt = JwtUtil.generate(LDTO.getUsername(), LDTO.getPassword());
 			
-			ctx.req.getSession(); 
+			ctx.req.getSession().setAttribute("username", LDTO.getUsername());; 
 			
 			ctx.status(200);
 			
-			ctx.result("Login Success! JWT is: " + jwt);
+			ctx.result(jwt);
 			
 		} else { 
 			

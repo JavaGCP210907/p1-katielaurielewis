@@ -1,5 +1,6 @@
 package com.revature.model;
 import java.sql.Timestamp;
+import java.time.Instant;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 @Entity
 @Table(name = "reimbursement")
 public class Reimbursement {
@@ -20,8 +23,9 @@ public class Reimbursement {
 	@GeneratedValue(strategy = GenerationType.IDENTITY) 
 	@Column(name = "reimb_id")
 	private int id;
-	@Column(name = "reimb_amount")
+	@Column(name = "reimb_amount", precision = 17, scale = 2)
 	private float amount;
+	@CreationTimestamp
 	@Column(name = "reimb_submitted")
 	private Timestamp submitted;
 	@Column(name = "reimb_resolved")
@@ -58,6 +62,15 @@ public class Reimbursement {
 	public Reimbursement() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	
+	public Reimbursement(float amount, String description, User author, ReimbursementStatus status, ReimbursementType type) {
+		super();
+		this.amount = amount;
+		this.description = description;
+		this.author = author;
+		this.status = status;
+		this.type = type;
 	}
 
 	public int getId() {
